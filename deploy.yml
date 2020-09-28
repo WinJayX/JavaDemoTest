@@ -3,9 +3,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: Java-Demo-Deploy
+  name: java-demo-deploy
 spec:
-  replicas: 3 
+  replicas: 2
   selector:
     matchLabels:
       app: java-demo
@@ -42,7 +42,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: Java-Demo-SVC
+  name: java-demo-svc
 spec:
   type: NodePort
   selector:
@@ -56,13 +56,13 @@ spec:
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: Java-Demo-Ingress
+  name: java-demo-ingress
 spec:
   rules:
-  - host: java.example.com
+  - host: javademo.cicd.com
     http:
       paths:
       - path: /
         backend:
-          serviceName: Java-Demo-SVC
+          serviceName: java-demo-svc
           servicePort: 80
