@@ -1,11 +1,14 @@
+//说明：在新建项目时，Jenkins需要新增两项参数-字符参数进行构建
+//1.Branch:默认值:Master     此次构建要拉取代码的分支版本
+//2.ImageTag:默认值:v1.0.0   此次构建生产的镜像版本
 
 // Docker镜像仓库地址
 def registry = "harbor.nercoa.com"
 // 项目信息
 def project = "winjay"
 def app_name = "demotest"
-def image_name = "${registry}/${project}/${app_name}:${BUILD_NUMBER}"
-//def git_address = "https://github.com/WinJayX/tomcat-java-demo.git"
+def image_name = "${registry}/${project}/${app_name}:${ImageTag}"
+//def git_address = "https://github.com/WinJayX/JavaDemoTest.git"
 def git_address = "https://git.nercoa.com/root/DemoTest.git"
 // 认证信息
 def secret_name = "registry-pull-secret"
