@@ -1,20 +1,27 @@
-//说明：在新建项目时，Jenkins需要新增两项参数-字符参数进行构建
-//1.Branch:默认值:Master     此次构建要拉取代码的分支版本
-//2.ImageTag:默认值:v1.0.0   此次构建生产的镜像版本
+/* 说明：在新建项目时，Jenkins需要新增几项参数-字符参数进行构建
+ * 1.Branch:默认值:Master     此次构建要拉取代码的分支版本
+ * 2.ImageTag:默认值:v1.0.0   此次构建生产的镜像版本
+ * 3.ProjectFile:默认值:src/XXX/XXX/FZ.IdentityServer.csproj 
+ * 4.MAIN_PROGRAM:默认值:XXX.dll
+ * 5.app_name: 默认值:为构建的微服务名称,必须全为小写
+ */
 
-// Docker镜像仓库地址
-def registry = "harbor.nercoa.com"
-// 项目信息
-def project = "winjay"
-def app_name = "demotest"
-def image_name = "${registry}/${project}/${app_name}:${ImageTag}"
-//def git_address = "https://github.com/WinJayX/JavaDemoTest.git"
-def git_address = "https://git.nercoa.com/root/DemoTest.git"
-// 认证信息
+//==========认证信息===========
 def secret_name = "registry-pull-secret"
 def docker_registry_auth = "34826729-147c-43c1-8c25-09f1357b36aa"
 def git_auth = "6d48a6ed-7e33-499b-b78d-d323699253c5"
 def k8s_auth = "1440a42f-0ee1-4eb2-9de4-29915386d25f"
+
+//==========Docker镜像仓库地址===========
+def registry = "harbor.nercoa.com"
+//==========项目变量信息===========
+def project = "winjay"
+def pdef app_name = "javademotest"
+def image_name = "${registry}/${project}/${app_name}:${ImageTag}"
+def git_address = "https://git.nercoa.com/root/DemoTest.git"
+
+
+
 
 podTemplate(label: 'jenkins-agent', cloud: 'kubernetes', containers: [
     containerTemplate(
