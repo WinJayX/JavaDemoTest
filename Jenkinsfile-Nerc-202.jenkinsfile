@@ -8,9 +8,11 @@
 
 //==========认证信息===========
 def secret_name = "registry-pull-secret"
-def docker_registry_auth = "34826729-147c-43c1-8c25-09f1357b36aa"
-def git_auth = "6d48a6ed-7e33-499b-b78d-d323699253c5"
+def git_auth = "973c9a08-4d62-4f8a-8792-7a214b7ffe66"
 def k8s_auth = "1440a42f-0ee1-4eb2-9de4-29915386d25f"
+def prod_k8s_auth = " f5f8effe-4b2b-4be5-a3f7-c6efc39c619c"
+def docker_registry_auth = "34826729-147c-43c1-8c25-09f1357b36aa"
+
 
 //==========Docker镜像仓库地址===========
 def registry = "harbor.nercoa.com"
@@ -19,8 +21,6 @@ def project = "winjay"
 def pdef app_name = "javademotest"
 def image_name = "${registry}/${project}/${app_name}:${ImageTag}"
 def git_address = "https://git.nercoa.com/root/DemoTest.git"
-
-
 
 
 podTemplate(label: 'jenkins-agent', cloud: 'kubernetes', containers: [
@@ -51,7 +51,8 @@ podTemplate(label: 'jenkins-agent', cloud: 'kubernetes', containers: [
               echo '
                 FROM tomcat
                 MAINTAINER WinJayX <WinJayX@Gmail.com>
-                LABEL description="This is Java Demo Project"
+                LABEL description="This image is Jenkins Agent with JDK 15"
+                LABEL version="jenkins-agent:jdk15"
                 USER root
                 RUN rm -rf /usr/local/tomcat/webapps/*
                 ADD target/*.war /usr/local/tomcat/webapps/ROOT.war 
